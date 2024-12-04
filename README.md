@@ -44,8 +44,13 @@ First setup your machine or your teammate's machine to be the self hosted runner
 Answer the following questions:
 
 1. What does the __runs-on__ string  
+- The `runs-on: self-hosted` string specifies that this workflow will run on a self-hosted runner (the machine we configured) instead of GitHub's default hosted runners.
+
 2. In `main.yml`, on which branch do the jest tests run when a push to main branch is made?
+- Answer: `main` branch
+
 3. In `main.yml`, on which branch do the jest tests run when a pull request is submitted to the deploy branch?
+- Answer: `deploy` branch
 
 Next, create a new workflow yml file that captures the following continuous integration requirement:
 
