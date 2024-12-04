@@ -14,8 +14,10 @@ const app = express();
 const port = 8000;
 
 app.listen(port, () => {
-  console.log(`Example app listening on port ${port}`);
+    console.log(`Example app listening on port ${port}`);
 });
+
+console.log('starting server...');
 
 const mongoDB = 'mongodb://127.0.0.1:27017/my_library_db';
 mongoose.connect(mongoDB);
@@ -23,48 +25,48 @@ const db = mongoose.connection;
 
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
 db.on('connected', () => {
-  console.log('Connected to database');
+    console.log('Connected to database');
 });
 
 // cors policy that allows requests from all origins. 
 // This is insecure and should be changed in production
 // to set trusted hosts
 app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({extended: true}));
 app.use(express.json());
 
 app.get('/home', (_, res: Response) => {
-  Home.show_home(res);
+    Home.show_home(res);
 });
 
 app.get('/available', (_, res: Response) => {
-  BooksStatus.showAllBooksStatus(res);
+    BooksStatus.showAllBooksStatus(res);
 });
 
 app.get('/books', async (_, res: Response) => {
-  try {
-    const data = await Books.showBooks();
-    res.send(data);
-  } catch {
-    res.send('No books found');
-  }
+    try {
+        const data = await Books.showBooks();
+        res.send(data);
+    } catch {
+        res.send('No books found');
+    }
 });
 
 app.get('/authors', (_, res: Response) => {
-  Authors.showAllAuthors(res);
+    Authors.showAllAuthors(res);
 });
 
 app.get('/book_dtls', (req: Request, res: Response) => {
-  BookDetails.showBookDtls(res, req.query.id as string);
+    BookDetails.showBookDtls(res, req.query.id as string);
 });
 
 app.post('/newbook', (req: Request, res: Response) => {
-  const { familyName, firstName, genreName, bookTitle } = req.body;
-  if (familyName && firstName && genreName && bookTitle) {
-    CreateBook.new_book(res, familyName, firstName, genreName, bookTitle).catch(err => {
-      res.send('Failed to create new book ' + err);
-    });
-  } else {
-    res.send('Invalid Inputs');
-  }
+    const {familyName, firstName, genreName, bookTitle} = req.body;
+    if (familyName && firstName && genreName && bookTitle) {
+        CreateBook.new_book(res, familyName, firstName, genreName, bookTitle).catch(err => {
+            res.send('Failed to create new book ' + err);
+        });
+    } else {
+        res.send('Invalid Inputs');
+    }
 });
