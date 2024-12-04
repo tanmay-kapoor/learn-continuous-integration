@@ -25,6 +25,6 @@
     "insert-sample-data": "npx ts-node insert_sample_data.ts",
     "remove-sample-data": "npx ts-node remove_db.ts",
     "remove_db": "npx ts-node remove_db.ts",
-    "insert-sample-db": "npx ts-node insert_sample_data.ts"
+    "insert_sample_db": "npx ts-node insert_sample_data.ts"
   }
 }
